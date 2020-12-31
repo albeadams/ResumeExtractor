@@ -6,6 +6,8 @@ import os
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 
+from info_extractor import InfoExtractor
+
 OUTPUT_DIR = "output_resumes"
 
 class WordDocCreator(object):
@@ -29,13 +31,14 @@ class WordDocCreator(object):
 
 	def create_documents(self):
 		# currently only writes text extracted from pdf to word doc
+		i = InfoExtractor()
 
 		for filename, val in self.pdf_txt_dict.items():
 			file = os.path.basename(filename)
-			name = val[1]
-			cleaned_string = ''.join(c for c in val[0] if self._valid_xml(c))
+			cleaned_string = ''.join(c for c in val if self._valid_xml(c))
+			i.extract_info(cleaned_string)
 			self.document = Document()
-			self._create_header(name)
+			self._create_header(i.name)
 			self.document.save(os.path.join(OUTPUT_DIR, file[:-4]+'.docx'))
 
 

@@ -4,10 +4,8 @@ import os
 from resume_extractor import ResumeExtractor
 from word_doc_creator import WordDocCreator
 
-
 INPUT_DIR = "input_resumes"
 OUTPUT_DIR = "output_resumes"
-
 
 def load_pdfs():
 	# Loads .pdf in INPUT_DIR, returns list
