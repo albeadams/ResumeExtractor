@@ -21,12 +21,17 @@ class InfoExtractor(object):
 				if name.count(' ') > 0: # more than 1 name
 					names.append(name)
 
+		if len(names) == 0:
+			return 'NAME NOT FOUND'
+
 		return names[0]   # first name is the resume owner
 
 
 	def extract_info(self, txt):
 
 		self.name = self._name_extractor(txt)
+		self.email = ''
+		self.phone = ''
 
 		emailRegex = '^[a-z0-9]+[\._]?[a-z0-9]+[\._]?[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
 		phoneRegex = '(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)[-\.\s]??\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})'
